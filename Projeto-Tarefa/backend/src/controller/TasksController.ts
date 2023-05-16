@@ -6,15 +6,18 @@ export const getTasks = async(request: Request, response: Response) => {
     const tasks = await getRepository(Tasks).find()
     return response.json(tasks);
 };
+
 export const saveTask = async(request: Request, response: Response) => {
     const task = await getRepository(Tasks).save(request.body)
     return response.json(task);
 };
+
 export const getTask = async(request: Request, response: Response) => {
     const {id} = request.params
     const task = await getRepository(Tasks).findOne({where: {id: parseInt(id, 10)}})
     return response.json(task);
 };
+
 export const updateTask = async(request: Request, response: Response) => {
     const {id} = request.params
     const task = await getRepository(Tasks).update(id, request.body)
@@ -26,6 +29,7 @@ export const updateTask = async(request: Request, response: Response) => {
         return response.status(404).json( {message: 'Tarefa não encontrada!'} )
     }
 };
+
 export const deleteTask = async(request: Request, response: Response) => {
     const {id} = request.params
     const task = await getRepository(Tasks).delete(id)
@@ -36,6 +40,7 @@ export const deleteTask = async(request: Request, response: Response) => {
         return response.status(404).json( {message: 'Tarefa não encontrada!'} )
     }
 };
+
 export const finishedTask = async(request: Request, response: Response) => {
     const {id} = request.params
     const task = await getRepository(Tasks).update(id, {
